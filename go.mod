@@ -1,10 +1,12 @@
-module github.com/sillygod/cdp-cache
+module github.com/dinekro/cdp-cache
 
 go 1.14
 
 require (
+	github.com/Masterminds/semver/v3 v3.1.1 // indirect
 	github.com/armon/go-metrics v0.3.3 // indirect
 	github.com/caddyserver/caddy/v2 v2.1.1
+	github.com/caddyserver/xcaddy v0.1.9 // indirect
 	github.com/cenkalti/backoff/v3 v3.2.2 // indirect
 	github.com/containerd/continuity v0.0.0-20200710164510-efbc4488d8fe // indirect
 	github.com/go-redis/redis v6.15.8+incompatible
