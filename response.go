@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/sillygod/cdp-cache/backends"
+	"github.com/dinekro/cdp-cache/backends"
 )
 
 // copyHeaders copy the header from one to another

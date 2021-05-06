@@ -13,9 +13,9 @@ import (
 	"github.com/caddyserver/caddy/v2"
 	"github.com/caddyserver/caddy/v2/modules/caddyhttp"
 	"github.com/hashicorp/consul/api"
-	"github.com/sillygod/cdp-cache/backends"
-	"github.com/sillygod/cdp-cache/extends/distributed"
-	"github.com/sillygod/cdp-cache/pkg/helper"
+	"github.com/dinekro/cdp-cache/backends"
+	"github.com/dinekro/cdp-cache/extends/distributed"
+	"github.com/dinekro/cdp-cache/pkg/helper"
 	"go.uber.org/zap"
 )
 

@@ -5,12 +5,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"regexp"
 	"hash/crc32"
 	"io"
 	"math"
 	"net/http"
 	"net/url"
+	"regexp"
 	"strconv"
 	"strings"
 	"sync"
@@ -18,8 +18,8 @@ import (
 
 	"github.com/caddyserver/caddy/v2"
 	"github.com/pquerna/cachecontrol/cacheobject"
-	"github.com/sillygod/cdp-cache/backends"
-	"github.com/sillygod/cdp-cache/extends/distributed"
+	"github.com/dinekro/cdp-cache/backends"
+	"github.com/dinekro/cdp-cache/extends/distributed"
 )
 
 // Module lifecycle
@@ -48,9 +48,9 @@ type RuleMatcherType string
 // the following list the different way to decide the request
 // whether is matched or not to be cached it's response.
 const (
-	MatcherTypePath   RuleMatcherType = "path"
-	MatcherTypePathRegex   RuleMatcherType = "pathRegex"
-	MatcherTypeHeader RuleMatcherType = "header"
+	MatcherTypePath      RuleMatcherType = "path"
+	MatcherTypePathRegex RuleMatcherType = "pathRegex"
+	MatcherTypeHeader    RuleMatcherType = "header"
 )
 
 // RuleMatcherRawWithType stores the marshal content for unmarshalling in provision stage
@@ -80,6 +80,8 @@ type PathRuleRegexMatcher struct {
 
 func (p *PathRuleRegexMatcher) matches(req *http.Request, statusCode int, resHeaders http.Header) bool {
 	matched, _ := regexp.Match(p.PathRegex, []byte(req.URL.Path))
+	println(req.URL.Path)
+	println(matched)
 	return matched
 }
 
@@ -443,7 +445,9 @@ func (h *HTTPCache) getBucketIndexForKey(key string) uint32 {
 // In caddy2, it is automatically add the map by addHTTPVarsToReplacer
 func getKey(cacheKeyTemplate string, r *http.Request) string {
 	repl := r.Context().Value(caddy.ReplacerCtxKey).(*caddy.Replacer)
-	return repl.ReplaceKnown(cacheKeyTemplate, "")
+	result := repl.ReplaceKnown(cacheKeyTemplate, "")
+	fmt.Println(result)
+	return result
 }
 
 // Get returns the cached response

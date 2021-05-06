@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/sillygod/cdp-cache/pkg/helper"
+	"github.com/dinekro/cdp-cache/pkg/helper"
 
 	"github.com/caddyserver/caddy/v2"
 	influxdb2 "github.com/influxdata/influxdb-client-go"

@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/sillygod/cdp-cache/backends"
+	"github.com/dinekro/cdp-cache/backends"
 	"github.com/stretchr/testify/suite"
 )
 

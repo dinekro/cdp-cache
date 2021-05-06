@@ -1,0 +1,14 @@
+{
+    order http_cache before reverse_proxy
+}
+
+http://localhost:80 {
+  
+  reverse_proxy http://grtest.website 
+
+  http_cache {
+        cache_type in_memory 
+        match_path_regex ^\/(..\/)?(\?.*)?$
+        cache_key "homepage-cache-{http.request.method} {http.request.host}{http.request.uri.path}?{http.request.uri.query}-currency-{http.request.cookie.currency_code}"
+    }
+}
