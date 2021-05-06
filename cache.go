@@ -5,6 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"regexp"
 	"hash/crc32"
 	"io"
 	"math"
@@ -48,6 +49,7 @@ type RuleMatcherType string
 // whether is matched or not to be cached it's response.
 const (
 	MatcherTypePath   RuleMatcherType = "path"
+	MatcherTypePathRegex   RuleMatcherType = "pathRegex"
 	MatcherTypeHeader RuleMatcherType = "header"
 )
 
@@ -69,6 +71,16 @@ type PathRuleMatcher struct {
 
 func (p *PathRuleMatcher) matches(req *http.Request, statusCode int, resHeaders http.Header) bool {
 	return strings.HasPrefix(req.URL.Path, p.Path)
+}
+
+// PathRuleRegexMatcher determines whether the request's path is matched.
+type PathRuleRegexMatcher struct {
+	PathRegex string `json:"pathRegex"`
+}
+
+func (p *PathRuleRegexMatcher) matches(req *http.Request, statusCode int, resHeaders http.Header) bool {
+	matched, _ := regexp.Match(p.PathRegex, []byte(req.URL.Path))
+	return matched
 }
 
 // HeaderRuleMatcher determines whether the request's header is matched.

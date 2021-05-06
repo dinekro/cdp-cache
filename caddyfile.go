@@ -55,6 +55,7 @@ const (
 	keyPath                   = "path"
 	keyMatchHeader            = "match_header"
 	keyMatchPath              = "match_path"
+	keyMatchPathRegex         = "match_path_regex"
 	keyCacheKey               = "cache_key"
 	keyCacheBucketsNum        = "cache_bucket_num"
 	keyCacheMaxMemorySize     = "cache_max_memory_size"
@@ -208,6 +209,18 @@ func (h *Handler) UnmarshalCaddyfile(d *caddyfile.Dispenser) error {
 
 				config.RuleMatchersRaws = append(config.RuleMatchersRaws, RuleMatcherRawWithType{
 					Type: MatcherTypePath,
+					Data: data,
+				})
+
+			case keyMatchPathRegex:
+				if len(args) != 1 {
+					return d.Err("Invalid usage of match_path in cache config.")
+				}
+				cacheRule := &PathRuleRegexMatcher{PathRegex: args[0]}
+				data, _ := json.Marshal(cacheRule)
+
+				config.RuleMatchersRaws = append(config.RuleMatchersRaws, RuleMatcherRawWithType{
+					Type: MatcherTypePathRegex,
 					Data: data,
 				})
 

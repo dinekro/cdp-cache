@@ -157,6 +157,16 @@ func (h *Handler) provisionRuleMatchers() error {
 
 			h.Config.RuleMatchers = append(h.Config.RuleMatchers, content)
 
+		case MatcherTypePathRegex:
+
+			var content *PathRuleRegexMatcher
+			err := json.Unmarshal(raw.Data, &content)
+			if err != nil {
+				return err
+			}
+
+			h.Config.RuleMatchers = append(h.Config.RuleMatchers, content)
+
 		case MatcherTypeHeader:
 
 			var content *HeaderRuleMatcher
